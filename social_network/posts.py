@@ -1,16 +1,20 @@
 from datetime import datetime as dt
 
-
 class Post(object):
     def __init__(self, text, timestamp=None):
         self.text = text.lstrip('text=')
-        self.timestamp = timestamp
+        if timestamp is None:
+            self.timestamp = dt.now()
+        else:
+            self.timestamp = timestamp
         self.user = None
+
+    # Use to enable sorting of posts by timestamp in User.get_timeline()
+    def __lt__(self, other):
+        return self.timestamp < other.timestamp
 
     def set_user(self, user):
         self.user = user
-
-
 
 
 class TextPost(Post):
@@ -27,7 +31,10 @@ class PicturePost(Post):
     def __init__(self, text, image_url, timestamp=None):
         self.text = text.lstrip('text=')
         self.url = image_url
-        self.timestamp = timestamp
+        if timestamp is None:
+            self.timestamp = dt.now()
+        else:
+            self.timestamp = timestamp
         self.user = None
 
     def __str__(self):
@@ -44,12 +51,15 @@ class CheckInPost(Post):
         self.text = text.lstrip('text=')
         self.lat = latitude
         self.lon = longitude
-        self.timestamp = timestamp
+        if timestamp is None:
+            self.timestamp = dt.now()
+        else:
+            self.timestamp = timestamp
         self.user = None
 
     def __str__(self):
         coordinates = '{lat}, {lon}'.format(lat=self.lat, lon=self.lon)
-        print(coordinates)
+
         return '@{first} Checked In: "{text}"\n\t{lat_lon}\n\t{timestamp}'.format(
             first = self.user.first_name,
             text = self.text,
