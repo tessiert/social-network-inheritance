@@ -33,7 +33,7 @@ class TextPost(Post):
 
 class PicturePost(Post):
     def __init__(self, text, image_url, timestamp=None):
-        super().__init__(text, timestamp)
+        super(PicturePost, self).__init__(text, timestamp)
         self.url = image_url
 
     def _extra_name_text(self):
@@ -45,7 +45,7 @@ class PicturePost(Post):
 
 class CheckInPost(Post):
     def __init__(self, text, latitude, longitude, timestamp=None):
-        super().__init__(text, timestamp)
+        super(CheckInPost, self).__init__(text, timestamp)
         self.lat = latitude
         self.lon = longitude
 
