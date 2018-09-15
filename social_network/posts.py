@@ -10,23 +10,9 @@ class Post(object):
         self.set_user(None)
 
     def __str__(self):
-
         name_txt = '@' + self.user.first_name + ' ' + self._extra_name_text()
         post_txt = '"{base_post}"\n\t'.format(base_post=self.text) + self._extra_post_text()
         timestamp_txt = self.timestamp.strftime('%A, %b %d, %Y')
-
-        # if hasattr(self, 'url'):
-        #     name_txt = name_txt + self.user.last_name + ': '
-        #     post_txt = post_txt + self.url + '\n\t'
-
-        # elif hasattr(self, 'lat') and hasattr(self, 'lon'):
-        #     post_txt = 'Checked In: {base_post}{lat}, {lon}\n\t'.format(
-        #         base_post = post_txt, lat = str(self.lat), lon = str(self.lon)
-        #         )
-
-        # else:
-        #     name_txt = name_txt + self.user.last_name + ': '
-
         return name_txt + post_txt + timestamp_txt
 
     # Use to enable sorting of posts by timestamp in User.get_timeline()
